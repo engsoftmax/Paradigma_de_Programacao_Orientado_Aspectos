@@ -1,0 +1,20 @@
+public aspect VerificarSaldoAspect {
+    // Define o ponto de corte para o método Sacar() em qualquer classe que implemente a interface Conta
+    pointcut sacarOperation(double valor) : execution(public void Conta.Sacar(double)) && args(valor);
+
+    // Define o conselho (advice) para executar antes do ponto de corte
+    before(double valor) : sacarOperation(valor) {
+        if (!saldoSuficiente(valor)) {
+            System.out.println("Saldo insuficiente para realizar o saque de " + valor);
+            // Lançar uma exceção ou registrar em um log de erro, conforme necessário
+        }
+    }
+
+    // Método privado para verificar se o saldo é suficiente
+    private boolean saldoSuficiente(double valor) {
+        // Implemente a lógica necessária para verificar o saldo com base na conta específica
+        // Aqui você pode usar reflection ou métodos específicos de cada tipo de conta, dependendo da necessidade
+        // Por simplicidade, este exemplo usa um saldo fixo de 1000 para todas as contas
+        return true; // Implemente a lógica real para verificar o saldo
+    }
+}
