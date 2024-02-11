@@ -1,0 +1,56 @@
+// Classe principal representando uma conta bancária
+public class Conta {
+    private String tipoConta;
+    private String tipoCliente;
+    private Date dataAbertura;
+    private double saldo;
+
+    public Conta(String tipoConta, String tipoCliente) {
+        this.tipoConta = tipoConta;
+        this.tipoCliente = tipoCliente;
+        this.dataAbertura = new Date(); // Data de abertura da conta
+        this.saldo = 0.0; // Saldo inicial zerado
+    }
+
+    public void Sacar(double valor) {
+        if (saldoSuficiente(valor)) {
+            saldo -= valor;
+            System.out.println("Saque de " + valor + " realizado com sucesso!");
+        } else {
+            System.out.println("Saldo insuficiente para realizar o saque de " + valor);
+        }
+    }
+
+    public void Depositar(double valor) {
+        saldo += valor;
+        System.out.println("Depósito de " + valor + " realizado com sucesso!");
+    }
+
+    private boolean saldoSuficiente(double valor) {
+        return saldo >= valor;
+    }
+}
+
+// Conta específica para poupança
+public class ContaPoupanca extends Conta {
+    public ContaPoupanca(String tipoConta, String tipoCliente) {
+        super(tipoConta, tipoCliente);
+    }
+
+    public double calculaValorTarifaManutencao() {
+        // Lógica para calcular a tarifa de manutenção específica para conta poupança
+        return 0.0; // Por exemplo, poupança não tem tarifa de manutenção
+    }
+}
+
+// Conta específica para investimento
+public class ContaInvestimento extends Conta {
+    public ContaInvestimento(String tipoConta, String tipoCliente) {
+        super(tipoConta, tipoCliente);
+    }
+
+    public double calculaValorTarifaManutencao() {
+        // Lógica para calcular a tarifa de manutenção específica para conta de investimento
+        return 10.0; // Por exemplo, uma tarifa fixa de 10 reais
+    }
+}
